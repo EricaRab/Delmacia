@@ -1,214 +1,108 @@
 :root {
-    /* Couleurs de Marque (Identité - Dominante Rose DEMACIA) */
-    --primary-color: #E91E63;    /* Rose profond (hotpink foncé) - Utilisé pour les boutons et titres */
-    --secondary-color: #F8BBD0;  /* Rose pâle (mistyrose teinté) - Utilisé pour les fonds doux */
-    --accent-color: #FF80AB;     /* Rose vif (hotpink) - Pour mettre en valeur certains éléments */
+    /* Ta palette DEMACIA */
+    --primary-color: #E91E63;    /* Hotpink foncé */
+    --secondary-color: #FCE4EC;  /* Rose très pâle (fond) */
+    --accent-color: #FF80AB;     /* Hotpink vif */
+    --success: #2E7D32;          
+    --warning: #F57C00;          
+    --danger: #C62828;           
     
-    /* Couleurs Sémantiques (Fonctionnelles - Cours codageCouleur-1) */
-    --success: #2E7D32;          /* Vert sombre - Pour les tâches terminées (contraste respecté) */
-    --warning: #F57C00;          /* Orange - Approche d'échéance */
-    --danger: #C62828;           /* Rouge sombre - Retard critique / Alerte */
-    
-    /* Couleurs Neutres (Structure) */
-    --bg-app: #FFFBFB;           /* Fond global (Blanc très légèrement teinté de chaud) */
-    --bg-card: #FFFFFF;          /* Fond des cartes (Blanc pur) */
-    --text-main: #212121;        /* Texte principal (Gris presque noir, plus doux pour les yeux) */
-    --text-muted: #757575;       /* Texte secondaire / légendes */
-    --border: #F8BBD0;           /* Bordures avec une subtile touche rosée */
-
-    /* Typographie */
-    --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --bg-app: #FFF8F9;           /* Fond de l'app légèrement rosé */
+    --bg-card: #FFFFFF;          
+    --text-main: #4A148C;        /* Violet très sombre pour un meilleur contraste que le noir */
+    --text-muted: #880E4F;       /* Bordeaux pour les textes secondaires */
+    --border: #F8BBD0;           
+    --font-main: 'Segoe UI', Roboto, Helvetica, sans-serif;
 }
 
-/* Mode Debug - À supprimer une fois la mise en page terminée */
-header { outline: 2px solid #FF5733; } /* Orange pour le haut */
-aside  { outline: 2px solid #33FF57; } /* Vert pour le menu */
-main   { outline: 2px solid #3357FF; } /* Bleu pour le contenu */
-.user-controls { outline: 1px dashed #888; }
-.brand { outline: 1px dashed #888; }
-
-body{
-    font-family: 'Helvatica Neue', Helvetica, sans-serif;
-}
-
-.brand h1 {
-    font-family: 'DancingScript';
-    font-size: 2.5rem; /* Ajuste la taille car les polices cursives paraissent souvent plus petites */
-    color: #d81b60;    /* La couleur rosée de ton design */
+/* --- Base --- */
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-app);
+    color: var(--text-main);
     margin: 0;
 }
 
-/* style.css */
-
+/* --- Structure (Finies les démarcations !) --- */
 .top-bar {
-    display: flex; /* Active Flexbox */
-    flex-direction: row; /* Aligne les éléments en ligne (comportement par défaut) */
-    justify-content: space-between; /* Pousse le 1er élément tout à gauche et le 2ème tout à droite */
-    align-items: center; /* Centre les éléments verticalement */
-    
-    padding: 10px 20px;
-    height: 60px;
-}
-
-/* On peut aussi utiliser Flexbox à l'intérieur des contrôles utilisateur */
-.user-controls {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 15px; /* Ajoute un espace entre la cloche et le profil */
+    padding: 0 30px;
+    height: 70px;
+    background-color: var(--bg-card);
+    border-bottom: 2px solid var(--border);
 }
 
-/* style.css */
+.brand h1 {
+    font-family: 'Dancing Script', cursive; /* Si tu l'as importée */
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin: 0;
+}
 
 .app-body {
-    display: grid; /* Active CSS Grid */
-    
-    /* On définit 2 colonnes : 
-       - La première (sidebar) fait 250 pixels de large.
-       - La deuxième (main) prend 1 fraction (1fr) de l'espace restant. */
-    grid-template-columns: 250px 1fr; 
-    
-    /* On définit que cette grille prend toute la hauteur de l'écran 
-       (moins la hauteur du header si nécessaire) */
-    height: 100vh; 
-}
-
-/* Optionnel : ajouter du style basique pour bien voir les zones */
-.sidebar {
-    padding: 20px;
-}
-
-#content-area {
-    padding: 30px;
-}
-
-/* --- Styles spécifiques au Dashboard --- */
-
-.dashboard-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Espace entre les zones */
-}
-
-/* Les cartes de résumé en haut */
-.summary-cards {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2 colonnes de largeur égale */
-    gap: 20px;
+    grid-template-columns: 260px 1fr;
+    height: calc(100vh - 72px);
 }
 
-.card {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Légère ombre pour détacher l'élément */
-}
-
-.card h3 {
-    margin-top: 0;
-    font-size: 1.1rem;
-    color: #333;
-}
-
-/* La barre de progression */
-.progress-bar-bg {
-    background-color: #f0f0f0;
-    border-radius: 10px;
-    height: 20px;
-    width: 100%;
-    overflow: hidden;
-}
-
-.progress-fill {
-    background-color: #4CAF50; /* Vert (couleur positive/avancement) */
-    height: 100%;
-    color: white;
-    text-align: center;
-    font-size: 0.8rem;
-    line-height: 20px; /* Centre le texte verticalement */
-    transition: width 0.3s ease; /* Animation fluide si la valeur change */
-}
-
-/* Les alertes */
-.alert-text {
-    color: #E53935; /* Rouge pour alerter (contraste fort) */
-    font-weight: bold;
-}
-
-/* La Todo List */
-.todo-section {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
+/* --- Menu Latéral --- */
+.sidebar {
+    background-color: var(--bg-card);
+    border-right: 1px solid var(--border);
     padding: 20px;
 }
-
-.todo-list {
-    list-style-type: none; /* Enlève les puces classiques */
-    padding: 0;
-}
-
-.todo-item {
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.todo-item:last-child {
-    border-bottom: none;
-}
-
-.todo-item label {
-    margin-left: 10px;
-    flex-grow: 1; /* Le texte prend tout l'espace disponible */
-    cursor: pointer;
-}
-
-/* Style de la tâche urgente */
-.todo-item.urgent {
-    border-left: 4px solid #E53935;
-    padding-left: 10px;
-}
-
-/* Les petites étiquettes (tags) */
-.tag {
-    background-color: #e0f7fa;
-    color: #00838f;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-}
-
 
 .sidebar nav ul {
-    list-style-type: none;
-}
-
-.sidebar nav ul li {
-    margin-bottom: 8px; /* Espace entre les boutons du menu */
+    list-style: none;
+    padding: 0;
 }
 
 .sidebar nav ul li a {
     text-decoration: none;
-
-    color: #8a4b5d; /* Couleur du texte sombre/rosé */
+    color: var(--text-muted);
     display: block;
     padding: 12px 20px;
-    border-radius: 12px; /* L'arrondi typique de ton image */
-    transition: all 0.3s ease; /* Animation fluide */
-    font-weight: 500;
+    border-radius: 15px;
+    margin-bottom: 5px;
+    transition: 0.3s;
 }
 
-/* Effet au survol (Hover) */
 .sidebar nav ul li a:hover {
-    background-color: #fce4ec; 
-    color: #d81b60;           
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
-/* active */
 .sidebar nav ul li a.active {
-    background-color: #f48fb1; 
-    color: white;              
+    background-color: var(--primary-color);
+    color: white;
 }
 
+/* --- Dashboard & Cartes --- */
+#content-area {
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.card, .todo-section {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px; /* Plus arrondi comme sur ton image */
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.05); /* Ombre rosée très légère */
+}
+
+/* Correction des tags pour qu'ils soient roses */
+.tag {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+/* Correction des alertes et urgences */
+.alert-text { color: var(--danger); }
+.todo-item.urgent { border-left: 5px solid var(--primary-color); }
