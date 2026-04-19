@@ -152,6 +152,30 @@ main   { outline: 2px solid #3357FF; } /* Bleu pour le contenu */
     list-style-type: none;
 }
 
+.sidebar nav ul li {
+    margin-bottom: 8px; /* Espace entre les boutons du menu */
+}
+
 .sidebar nav ul li a {
     text-decoration: none;
+
+    color: #8a4b5d; /* Couleur du texte sombre/rosé */
+    display: block;
+    padding: 12px 20px;
+    border-radius: 12px; /* L'arrondi typique de ton image */
+    transition: all 0.3s ease; /* Animation fluide */
+    font-weight: 500;
 }
+
+/* Effet au survol (Hover) */
+.sidebar nav ul li a:hover {
+    background-color: #fce4ec; 
+    color: #d81b60;           
+}
+
+/* active */
+.sidebar nav ul li a.active {
+    background-color: #f48fb1; 
+    color: white;              
+}
+
