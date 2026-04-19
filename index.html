@@ -81,11 +81,11 @@
 
         <main id="content-area">
             <section class="view-header">
-                <h2>Tableau de bord</h2>
+                <h2 id="view-title">Tableau de bord</h2>
             </section>
             
             <section class="view-content">
-                <div class="dashboard-container">
+                <div class="dashboard-container" id="view-dashboard">
 
                     <!-- Bannière compte à rebours -->
                     <div class="countdown-banner">
@@ -130,47 +130,23 @@
                             <h3>Avancement global</h3>
                             <div class="donut-wrap">
                                 <svg width="110" height="110" viewBox="0 0 110 110">
-                                    <!-- r=40 → circonférence = 251.3 -->
-                                    <!-- Terminé 65% = 163.3 | En cours 20% = 50.3 | À faire 15% = 37.7 -->
-                                    <!-- Fond -->
                                     <circle cx="55" cy="55" r="40" fill="none" stroke="#E8EDF2" stroke-width="12"/>
-                                    <!-- À faire 15% -->
                                     <circle cx="55" cy="55" r="40" fill="none" stroke="#E8EDF2" stroke-width="12"
-                                        stroke-dasharray="37.7 251.3"
-                                        stroke-dashoffset="-213.6"
-                                        stroke-linecap="butt"
-                                        transform="rotate(-90 55 55)"/>
-                                    <!-- En cours 20% -->
+                                        stroke-dasharray="37.7 251.3" stroke-dashoffset="-213.6"
+                                        stroke-linecap="butt" transform="rotate(-90 55 55)"/>
                                     <circle cx="55" cy="55" r="40" fill="none" stroke="#F0A500" stroke-width="12"
-                                        stroke-dasharray="50.3 251.3"
-                                        stroke-dashoffset="-163.3"
-                                        stroke-linecap="butt"
-                                        transform="rotate(-90 55 55)"/>
-                                    <!-- Terminé 65% -->
+                                        stroke-dasharray="50.3 251.3" stroke-dashoffset="-163.3"
+                                        stroke-linecap="butt" transform="rotate(-90 55 55)"/>
                                     <circle cx="55" cy="55" r="40" fill="none" stroke="#1D6FA4" stroke-width="12"
-                                        stroke-dasharray="163.3 251.3"
-                                        stroke-dashoffset="0"
-                                        stroke-linecap="butt"
-                                        transform="rotate(-90 55 55)"/>
+                                        stroke-dasharray="163.3 251.3" stroke-dashoffset="0"
+                                        stroke-linecap="butt" transform="rotate(-90 55 55)"/>
                                     <text x="55" y="51" text-anchor="middle" font-family="'DM Mono',monospace" font-size="14" font-weight="500" fill="#880E4F">65%</text>
                                     <text x="55" y="64" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="#880E4F" opacity="0.55">terminé</text>
                                 </svg>
                                 <div class="donut-legend">
-                                    <div class="legend-row">
-                                        <span class="legend-dot done"></span>
-                                        <span class="legend-name">Terminé</span>
-                                        <span class="legend-pct">65%</span>
-                                    </div>
-                                    <div class="legend-row">
-                                        <span class="legend-dot active"></span>
-                                        <span class="legend-name">En cours</span>
-                                        <span class="legend-pct">20%</span>
-                                    </div>
-                                    <div class="legend-row">
-                                        <span class="legend-dot todo"></span>
-                                        <span class="legend-name">À faire</span>
-                                        <span class="legend-pct">15%</span>
-                                    </div>
+                                    <div class="legend-row"><span class="legend-dot done"></span><span class="legend-name">Terminé</span><span class="legend-pct">65%</span></div>
+                                    <div class="legend-row"><span class="legend-dot active"></span><span class="legend-name">En cours</span><span class="legend-pct">20%</span></div>
+                                    <div class="legend-row"><span class="legend-dot todo"></span><span class="legend-name">À faire</span><span class="legend-pct">15%</span></div>
                                 </div>
                             </div>
                         </div>
@@ -199,10 +175,255 @@
 
                     </div>
                 </div>
+
+                <!-- ═══════════════════════════════════════ VUE GANTT ═══ -->
+                <div class="gantt-container" id="view-gantt" style="display:none">
+                    <div class="gantt-layout">
+
+                        <!-- Colonne tâches -->
+                        <div class="gantt-tasks" id="gantt-tasks"></div>
+
+                        <!-- Colonne graphique -->
+                        <div class="gantt-chart-area">
+                            <div class="gantt-header" id="gantt-header"></div>
+                            <div class="gantt-bars" id="gantt-bars"></div>
+                        </div>
+
+                    </div>
+
+                    <!-- Panneau de détail -->
+                    <div class="gantt-detail-panel" id="gantt-detail" style="display:none">
+                        <div class="gdp-header">
+                            <span class="gdp-close" id="gdp-close">✕</span>
+                            <span class="gdp-badge" id="gdp-status"></span>
+                            <h3 id="gdp-title"></h3>
+                            <p id="gdp-project"></p>
+                        </div>
+                        <div class="gdp-body">
+                            <div class="gdp-row"><span class="gdp-label">Début</span><span id="gdp-start"></span></div>
+                            <div class="gdp-row"><span class="gdp-label">Fin</span><span id="gdp-end"></span></div>
+                            <div class="gdp-row"><span class="gdp-label">Responsable</span><span id="gdp-owner"></span></div>
+                            <div class="gdp-row"><span class="gdp-label">Avancement</span>
+                                <div class="gdp-progress-wrap"><div class="gdp-progress-fill" id="gdp-progress"></div></div>
+                                <span id="gdp-pct"></span>
+                            </div>
+                            <div class="gdp-row gdp-note-row"><span class="gdp-label">Note</span><span id="gdp-note"></span></div>
+                        </div>
+                    </div>
+                </div>
             </section>
         </main>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+    // ── Navigation ──────────────────────────────────────────────
+    const views = {
+        dashboard: { el: document.getElementById('view-dashboard'), title: 'Tableau de bord' },
+        gantt:     { el: document.getElementById('view-gantt'),     title: 'Planning (Gantt)' }
+    };
+
+    function showView(name) {
+        Object.entries(views).forEach(([k, v]) => {
+            v.el.style.display = k === name ? '' : 'none';
+        });
+        document.getElementById('view-title').textContent = views[name]?.title || '';
+        document.querySelectorAll('.sidebar a').forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + name);
+        });
+        if (name === 'gantt') renderGantt();
+    }
+
+    document.querySelectorAll('.sidebar a').forEach(a => {
+        a.addEventListener('click', e => {
+            e.preventDefault();
+            const target = a.getAttribute('href').replace('#', '');
+            if (views[target]) showView(target);
+        });
+    });
+
+    // ── Données Gantt ────────────────────────────────────────────
+    const GANTT_START = new Date('2026-04-01');
+    const GANTT_END   = new Date('2026-05-10');
+    const DAY_W = 28; // px par jour
+
+    const projects = [
+        {
+            id: 'lieu', label: 'Lieu & Logistique', color: '#1D6FA4', open: true,
+            tasks: [
+                { id: 't1', label: 'Réservation salle', start: '2026-04-01', end: '2026-04-05', pct: 100, status: 'done',    owner: 'Sophie M.',  note: 'Contrat signé, acompte versé.' },
+                { id: 't2', label: 'Plan de salle',     start: '2026-04-06', end: '2026-04-14', pct: 80,  status: 'active',  owner: 'Sophie M.',  note: 'En attente validation traiteur.' },
+                { id: 't3', label: 'Signalétique',      start: '2026-04-15', end: '2026-04-28', pct: 20,  status: 'active',  owner: 'Marc D.',    note: '' },
+                { id: 't4', label: 'Décoration florale',start: '2026-04-20', end: '2026-05-03', pct: 0,   status: 'todo',    owner: 'Laura B.',   note: 'Devis reçu, à valider.' },
+            ]
+        },
+        {
+            id: 'traiteur', label: 'Traiteur & Boissons', color: '#C62828', open: true,
+            tasks: [
+                { id: 't5', label: 'Sélection traiteur', start: '2026-04-01', end: '2026-04-10', pct: 60,  status: 'critical', owner: 'Marc D.',   note: '⚠ Retard 2 jours — relancer le prestataire.' },
+                { id: 't6', label: 'Menu dégustation',   start: '2026-04-11', end: '2026-04-18', pct: 0,   status: 'todo',    owner: 'Marc D.',    note: 'Bloqué par t5.' },
+                { id: 't7', label: 'Bar & cocktails',    start: '2026-04-18', end: '2026-04-30', pct: 0,   status: 'todo',    owner: 'Laura B.',   note: '' },
+            ]
+        },
+        {
+            id: 'invites', label: 'Invités & Protocole', color: '#F0A500', open: true,
+            tasks: [
+                { id: 't8',  label: 'Invitations envoyées', start: '2026-04-01', end: '2026-04-07', pct: 100, status: 'done',   owner: 'Sophie M.', note: '124 invitations postées.' },
+                { id: 't9',  label: 'Suivi confirmations',  start: '2026-04-08', end: '2026-04-25', pct: 55,  status: 'active', owner: 'Sophie M.', note: '68/124 confirmés.' },
+                { id: 't10', label: 'Relance VIPs',         start: '2026-04-18', end: '2026-04-20', pct: 0,   status: 'warn',   owner: 'Marc D.',   note: '⏳ Échéance demain 10h00.' },
+                { id: 't11', label: 'Plan de table',        start: '2026-04-26', end: '2026-05-02', pct: 0,   status: 'todo',   owner: 'Laura B.',  note: '' },
+            ]
+        },
+        {
+            id: 'media', label: 'Médias & Souvenirs', color: '#2E7D32', open: false,
+            tasks: [
+                { id: 't12', label: 'Photographe',   start: '2026-04-05', end: '2026-04-10', pct: 100, status: 'done',   owner: 'Laura B.',  note: 'Contrat signé.' },
+                { id: 't13', label: 'Vidéaste',      start: '2026-04-05', end: '2026-04-12', pct: 100, status: 'done',   owner: 'Laura B.',  note: 'Contrat signé.' },
+                { id: 't14', label: 'Livre d\'or',   start: '2026-04-20', end: '2026-04-28', pct: 10,  status: 'active', owner: 'Marc D.',   note: '' },
+                { id: 't15', label: 'Cadeaux invités',start: '2026-04-22', end: '2026-05-01', pct: 0,  status: 'todo',   owner: 'Sophie M.', note: '' },
+            ]
+        }
+    ];
+
+    const STATUS_COLORS = {
+        done:     '#1D6FA4',
+        active:   '#F0A500',
+        todo:     '#C8D0D8',
+        critical: '#C62828',
+        warn:     '#F57C00'
+    };
+    const STATUS_LABELS = {
+        done: 'Terminé', active: 'En cours', todo: 'À faire', critical: 'Critique', warn: 'Urgent'
+    };
+
+    function daysBetween(a, b) {
+        return Math.round((new Date(b) - new Date(a)) / 86400000);
+    }
+    function fmtDate(d) {
+        return new Date(d).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' });
+    }
+
+    let selectedTask = null;
+
+    function renderGantt() {
+        const totalDays = daysBetween(GANTT_START, GANTT_END);
+        const tasksEl  = document.getElementById('gantt-tasks');
+        const headerEl = document.getElementById('gantt-header');
+        const barsEl   = document.getElementById('gantt-bars');
+
+        // Header : semaines
+        headerEl.innerHTML = '';
+        let d = new Date(GANTT_START);
+        while (d < GANTT_END) {
+            const label = d.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' });
+            const cell = document.createElement('div');
+            cell.className = 'gantt-week-label';
+            cell.style.width = (7 * DAY_W) + 'px';
+            cell.textContent = label;
+            headerEl.appendChild(cell);
+            d.setDate(d.getDate() + 7);
+        }
+        // Ligne "aujourd'hui"
+        const todayOffset = daysBetween(GANTT_START, new Date());
+        if (todayOffset >= 0 && todayOffset <= totalDays) {
+            const marker = document.createElement('div');
+            marker.className = 'gantt-today-line';
+            marker.style.left = (todayOffset * DAY_W) + 'px';
+            marker.style.height = barsEl.offsetHeight + 'px';
+            barsEl.appendChild(marker);
+        }
+
+        tasksEl.innerHTML = '';
+        barsEl.innerHTML  = '';
+
+        projects.forEach(proj => {
+            // Groupe header — tâches
+            const gh = document.createElement('div');
+            gh.className = 'gantt-group-header';
+            gh.innerHTML = `<span class="gantt-group-arrow ${proj.open ? 'open' : ''}" data-id="${proj.id}">▶</span>
+                            <span class="gantt-group-dot" style="background:${proj.color}"></span>
+                            <span class="gantt-group-name">${proj.label}</span>`;
+            tasksEl.appendChild(gh);
+
+            // Groupe header — barres (vide, juste la hauteur)
+            const gbBar = document.createElement('div');
+            gbBar.className = 'gantt-group-header gantt-group-bar-row';
+            barsEl.appendChild(gbBar);
+
+            // Tâches
+            proj.tasks.forEach(task => {
+                const taskRow = document.createElement('div');
+                taskRow.className = 'gantt-task-row' + (proj.open ? '' : ' hidden');
+                taskRow.dataset.group = proj.id;
+                taskRow.innerHTML = `<span class="gantt-task-label">${task.label}</span>
+                    <span class="gantt-task-owner">${task.owner}</span>`;
+                taskRow.addEventListener('click', () => openDetail(task, proj));
+                tasksEl.appendChild(taskRow);
+
+                const offset = daysBetween(GANTT_START, task.start);
+                const width  = Math.max(daysBetween(task.start, task.end), 1);
+                const barRow = document.createElement('div');
+                barRow.className = 'gantt-bar-row' + (proj.open ? '' : ' hidden');
+                barRow.dataset.group = proj.id;
+
+                const bar = document.createElement('div');
+                bar.className = 'gantt-bar';
+                bar.style.left    = (offset * DAY_W) + 'px';
+                bar.style.width   = (width  * DAY_W - 4) + 'px';
+                bar.style.background = STATUS_COLORS[task.status];
+
+                const fill = document.createElement('div');
+                fill.className = 'gantt-bar-fill';
+                fill.style.width = task.pct + '%';
+                fill.style.background = 'rgba(255,255,255,0.3)';
+                bar.appendChild(fill);
+
+                bar.addEventListener('click', () => openDetail(task, proj));
+                barRow.appendChild(bar);
+                barsEl.appendChild(barRow);
+            });
+        });
+
+        // Ligne aujourd'hui (après rendu)
+        const tl = document.createElement('div');
+        tl.className = 'gantt-today-line';
+        tl.style.left = (daysBetween(GANTT_START, new Date()) * DAY_W) + 'px';
+        barsEl.appendChild(tl);
+
+        // Toggle groupes
+        tasksEl.querySelectorAll('.gantt-group-arrow').forEach(arrow => {
+            arrow.addEventListener('click', e => {
+                e.stopPropagation();
+                const id = arrow.dataset.id;
+                const proj = projects.find(p => p.id === id);
+                proj.open = !proj.open;
+                arrow.classList.toggle('open', proj.open);
+                document.querySelectorAll(`[data-group="${id}"]`).forEach(r => r.classList.toggle('hidden', !proj.open));
+            });
+        });
+    }
+
+    function openDetail(task, proj) {
+        const panel = document.getElementById('gantt-detail');
+        document.getElementById('gdp-title').textContent   = task.label;
+        document.getElementById('gdp-project').textContent = proj.label;
+        const badge = document.getElementById('gdp-status');
+        badge.textContent = STATUS_LABELS[task.status];
+        badge.style.background = STATUS_COLORS[task.status] + '22';
+        badge.style.color = STATUS_COLORS[task.status];
+        document.getElementById('gdp-start').textContent = fmtDate(task.start);
+        document.getElementById('gdp-end').textContent   = fmtDate(task.end);
+        document.getElementById('gdp-owner').textContent = task.owner;
+        document.getElementById('gdp-pct').textContent   = task.pct + '%';
+        document.getElementById('gdp-progress').style.width = task.pct + '%';
+        document.getElementById('gdp-progress').style.background = STATUS_COLORS[task.status];
+        document.getElementById('gdp-note').textContent  = task.note || '—';
+        panel.style.display = '';
+        selectedTask = task.id;
+    }
+
+    document.getElementById('gdp-close').addEventListener('click', () => {
+        document.getElementById('gantt-detail').style.display = 'none';
+    });
+    </script>
 </body>
 </html>
