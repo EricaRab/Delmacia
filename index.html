@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>DEMACIA - Coordination Événementielle</title>
-    
     <link rel="stylesheet" href="style.css">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
@@ -48,17 +47,19 @@
             <section class="view-content">
                 <div class="dashboard-container">
 
+                    <!-- Bannière compte à rebours -->
                     <div class="countdown-banner">
                         <div class="banner-left">
                             <span class="banner-count">J–14</span>
                             <span class="banner-label">jours restants</span>
                         </div>
                         <div class="banner-event">
-                            <strong>Gala de Charité</strong>
-                            3 mai 2026 · Paris
+                            <strong>Mariage Erica & Devi</strong>
+                            3 mai 2026 · La Ciotat
                         </div>
                     </div>
 
+                    <!-- KPIs -->
                     <div class="kpi-grid">
                         <div class="kpi-card">
                             <span class="kpi-label">Projets</span>
@@ -82,30 +83,37 @@
                         </div>
                     </div>
 
+                    <!-- Bas du dashboard -->
                     <div class="dashboard-bottom">
 
                         <div class="card chart-card">
                             <h3>Avancement global</h3>
                             <div class="donut-wrap">
                                 <svg width="110" height="110" viewBox="0 0 110 110">
-                                    <circle cx="55" cy="55" r="40" fill="none" stroke="#e0ddd6" stroke-width="12"/>
-                                    <circle cx="55" cy="55" r="40" fill="none" stroke="#b4b2a9" stroke-width="12"
+                                    <!-- r=40 → circonférence = 251.3 -->
+                                    <!-- Terminé 65% = 163.3 | En cours 20% = 50.3 | À faire 15% = 37.7 -->
+                                    <!-- Fond -->
+                                    <circle cx="55" cy="55" r="40" fill="none" stroke="#F8BBD0" stroke-width="12"/>
+                                    <!-- À faire 15% -->
+                                    <circle cx="55" cy="55" r="40" fill="none" stroke="#F8BBD0" stroke-width="12"
                                         stroke-dasharray="37.7 251.3"
                                         stroke-dashoffset="-213.6"
                                         stroke-linecap="butt"
                                         transform="rotate(-90 55 55)"/>
-                                    <circle cx="55" cy="55" r="40" fill="none" stroke="#185FA5" stroke-width="12"
+                                    <!-- En cours 20% -->
+                                    <circle cx="55" cy="55" r="40" fill="none" stroke="#FF80AB" stroke-width="12"
                                         stroke-dasharray="50.3 251.3"
                                         stroke-dashoffset="-163.3"
                                         stroke-linecap="butt"
                                         transform="rotate(-90 55 55)"/>
-                                    <circle cx="55" cy="55" r="40" fill="none" stroke="#0F6E56" stroke-width="12"
+                                    <!-- Terminé 65% -->
+                                    <circle cx="55" cy="55" r="40" fill="none" stroke="#e9487e" stroke-width="12"
                                         stroke-dasharray="163.3 251.3"
                                         stroke-dashoffset="0"
                                         stroke-linecap="butt"
                                         transform="rotate(-90 55 55)"/>
-                                    <text x="55" y="51" text-anchor="middle" font-family="'DM Mono',monospace" font-size="14" font-weight="500" fill="#1a1a18">65%</text>
-                                    <text x="55" y="64" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="#888780">terminé</text>
+                                    <text x="55" y="51" text-anchor="middle" font-family="'DM Mono',monospace" font-size="14" font-weight="500" fill="#880E4F">65%</text>
+                                    <text x="55" y="64" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="#880E4F" opacity="0.55">terminé</text>
                                 </svg>
                                 <div class="donut-legend">
                                     <div class="legend-row">
