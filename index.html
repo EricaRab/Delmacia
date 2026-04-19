@@ -44,44 +44,86 @@
             <section class="view-content">
                 <div class="dashboard-container">
     
-    <div class="summary-cards">
-        
-        <div class="card progress-card">
-            <h3>Avancement Global</h3>
-            <div class="progress-bar-bg">
-                <div class="progress-fill" style="width: 65%;">65%</div>
+    <div class="countdown-banner">
+    <div class="countdown-text">
+        <h2>J - 14</h2>
+        <p>avant le Gala de Charité</p>
+    </div>
+</div>
+
+<div class="kpi-grid">
+    <div class="kpi-card">
+        <div class="kpi-icon">📁</div>
+        <div class="kpi-data">
+            <span class="kpi-title">Projets</span>
+            <strong class="kpi-number">6</strong>
+            <span class="kpi-sub">2 terminés</span>
+        </div>
+    </div>
+    
+    <div class="kpi-card">
+        <div class="kpi-icon">📋</div>
+        <div class="kpi-data">
+            <span class="kpi-title">Tâches</span>
+            <strong class="kpi-number">132</strong>
+            <span class="kpi-sub">28 terminées</span>
+        </div>
+    </div>
+    
+    <div class="kpi-card">
+        <div class="kpi-icon">👥</div>
+        <div class="kpi-data">
+            <span class="kpi-title">Membres</span>
+            <strong class="kpi-number">8</strong>
+            <span class="kpi-sub">2 actifs</span>
+        </div>
+    </div>
+    
+    <div class="kpi-card">
+        <div class="kpi-icon">📈</div>
+        <div class="kpi-data">
+            <span class="kpi-title">Productivité</span>
+            <strong class="kpi-number">76%</strong>
+            <span class="kpi-sub positive">↗ +26%</span>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-bottom">
+    
+    <div class="card chart-card">
+        <h3>Avancement Global</h3>
+        <div class="donut-container">
+            <div class="donut-chart">
+                <div class="donut-hole">
+                    <span>65%</span>
+                </div>
             </div>
         </div>
-
-        <div class="card alert-card">
-            <h3>Alertes & Retards</h3>
-            <p class="alert-text">⚠️ 1 tâche urgente en retard</p>
+        <div class="chart-legend">
+            <span class="legend-item"><span class="dot done"></span>Terminé (65%)</span>
+            <span class="legend-item"><span class="dot progress"></span>En cours (20%)</span>
+            <span class="legend-item"><span class="dot todo"></span>À faire (15%)</span>
         </div>
-
     </div>
 
-    <div class="todo-section">
-        <h3>Ce qu'il reste à faire (Priorités)</h3>
-        <ul class="todo-list">
-            
-            <li class="todo-item urgent">
-                <input type="checkbox" id="task1">
-                <label for="task1">Contacter le traiteur (Validation devis)</label>
-                <span class="tag">Prestataire</span>
+    <div class="card alerts-card">
+        <h3>Tâches en retard & Alertes</h3>
+        <ul class="alert-list">
+            <li class="alert-item critical">
+                <span class="alert-icon">⚠️</span>
+                <div class="alert-content">
+                    <strong>Traiteur non validé</strong>
+                    <span>Retard : 2 jours</span>
+                </div>
             </li>
-            
-            <li class="todo-item">
-                <input type="checkbox" id="task2">
-                <label for="task2">Finaliser le plan de salle</label>
-                <span class="tag">Logistique</span>
+            <li class="alert-item warning">
+                <span class="alert-icon">⏳</span>
+                <div class="alert-content">
+                    <strong>Relancer les VIPs</strong>
+                    <span>Échéance : Demain 10h</span>
+                </div>
             </li>
-            
-            <li class="todo-item">
-                <input type="checkbox" id="task3">
-                <label for="task3">Envoyer les invitations aux VIP</label>
-                <span class="tag">Communication</span>
-            </li>
-
         </ul>
     </div>
 
