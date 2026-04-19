@@ -47,3 +47,102 @@ main   { outline: 2px solid #3357FF; } /* Bleu pour le contenu */
 #content-area {
     padding: 30px;
 }
+
+/* --- Styles spécifiques au Dashboard --- */
+
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espace entre les zones */
+}
+
+/* Les cartes de résumé en haut */
+.summary-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 colonnes de largeur égale */
+    gap: 20px;
+}
+
+.card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Légère ombre pour détacher l'élément */
+}
+
+.card h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+/* La barre de progression */
+.progress-bar-bg {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    height: 20px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.progress-fill {
+    background-color: #4CAF50; /* Vert (couleur positive/avancement) */
+    height: 100%;
+    color: white;
+    text-align: center;
+    font-size: 0.8rem;
+    line-height: 20px; /* Centre le texte verticalement */
+    transition: width 0.3s ease; /* Animation fluide si la valeur change */
+}
+
+/* Les alertes */
+.alert-text {
+    color: #E53935; /* Rouge pour alerter (contraste fort) */
+    font-weight: bold;
+}
+
+/* La Todo List */
+.todo-section {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.todo-list {
+    list-style-type: none; /* Enlève les puces classiques */
+    padding: 0;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.todo-item:last-child {
+    border-bottom: none;
+}
+
+.todo-item label {
+    margin-left: 10px;
+    flex-grow: 1; /* Le texte prend tout l'espace disponible */
+    cursor: pointer;
+}
+
+/* Style de la tâche urgente */
+.todo-item.urgent {
+    border-left: 4px solid #E53935;
+    padding-left: 10px;
+}
+
+/* Les petites étiquettes (tags) */
+.tag {
+    background-color: #e0f7fa;
+    color: #00838f;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
