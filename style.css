@@ -1,3 +1,10 @@
+/* Mode Debug - À supprimer une fois la mise en page terminée */
+header { outline: 2px solid #FF5733; } /* Orange pour le haut */
+aside  { outline: 2px solid #33FF57; } /* Vert pour le menu */
+main   { outline: 2px solid #3357FF; } /* Bleu pour le contenu */
+.user-controls { outline: 1px dashed #888; }
+.brand { outline: 1px dashed #888; }
+
 /* style.css */
 
 .top-bar {
