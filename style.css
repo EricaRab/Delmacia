@@ -1,3 +1,25 @@
+:root {
+    /* Couleurs de Marque (Identité - Dominante Rose DEMACIA) */
+    --primary-color: #E91E63;    /* Rose profond (hotpink foncé) - Utilisé pour les boutons et titres */
+    --secondary-color: #F8BBD0;  /* Rose pâle (mistyrose teinté) - Utilisé pour les fonds doux */
+    --accent-color: #FF80AB;     /* Rose vif (hotpink) - Pour mettre en valeur certains éléments */
+    
+    /* Couleurs Sémantiques (Fonctionnelles - Cours codageCouleur-1) */
+    --success: #2E7D32;          /* Vert sombre - Pour les tâches terminées (contraste respecté) */
+    --warning: #F57C00;          /* Orange - Approche d'échéance */
+    --danger: #C62828;           /* Rouge sombre - Retard critique / Alerte */
+    
+    /* Couleurs Neutres (Structure) */
+    --bg-app: #FFFBFB;           /* Fond global (Blanc très légèrement teinté de chaud) */
+    --bg-card: #FFFFFF;          /* Fond des cartes (Blanc pur) */
+    --text-main: #212121;        /* Texte principal (Gris presque noir, plus doux pour les yeux) */
+    --text-muted: #757575;       /* Texte secondaire / légendes */
+    --border: #F8BBD0;           /* Bordures avec une subtile touche rosée */
+
+    /* Typographie */
+    --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
 /* Mode Debug - À supprimer une fois la mise en page terminée */
 header { outline: 2px solid #FF5733; } /* Orange pour le haut */
 aside  { outline: 2px solid #33FF57; } /* Vert pour le menu */
