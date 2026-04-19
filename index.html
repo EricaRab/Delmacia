@@ -1,12 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>DEMACIA - Coordination Événementielle</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script src="script.js" defer></script>
+
+    <header class="top-bar">
+        <div class="brand">
+            <h1>DEMACIA</h1>
+        </div>
+        
+        <div class="user-controls">
+            <button class="notif-btn" aria-label="Notifications">
+                <span class="icon-bell">🔔</span>
+            </button>
+            
+            <div class="user-profile">
+                <span class="user-name">Organisateur</span>
+                <img src="avatar.jpg" alt="Photo de profil de l'utilisateur" class="profile-pic">
+            </div>
+        </div>
+    </header>
+
+    <div class="app-body">
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="#dashboard">Tableau de bord</a></li>
+                    <li><a href="#taskboard">Taskboard</a></li>
+                    <li><a href="#gantt">Planning (Gantt)</a></li>
+                    <li><a href="#settings">Configuration</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main id="content-area">
+            <section class="view-header">
+                <h2>Tableau de bord principal</h2>
+            </section>
+            
+            <section class="view-content">
+                </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
