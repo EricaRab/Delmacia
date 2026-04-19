@@ -1,8 +1,8 @@
 :root {
-    /* Ta palette DEMACIA */
-    --primary-color: #e9487e;    /* Hotpink foncé */
-    --secondary-color: #FCE4EC;  /* Rose très pâle (fond) */
-    --accent-color: #FF80AB;     /* Hotpink vif */
+    /* palette de couleurs DEMACIA */
+    --primary-color: #e9487e;
+    --secondary-color: #FCE4EC;
+    --accent-color: #FF80AB;
     --success: #2E7D32;          
     --warning: #F57C00;          
     --danger: #C62828;           
@@ -23,7 +23,7 @@ body {
     margin: 0;
 }
 
-/* --- Structure (Finies les démarcations !) --- */
+/* --- Structure --- */
 .top-bar {
     display: flex;
     justify-content: space-between;
@@ -35,7 +35,7 @@ body {
 }
 
 .brand h1 {
-    font-family: 'Dancing Script', cursive; /* Si tu l'as importée */
+    font-family: 'Dancing Script', cursive;
     font-size: 2.2rem;
     color: var(--primary-color);
     margin: 0;
@@ -88,12 +88,12 @@ body {
 .card, .todo-section {
     background-color: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: 20px; /* Plus arrondi comme sur ton image */
+    border-radius: 20px;
     padding: 25px;
-    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.05); /* Ombre rosée très légère */
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.05);
 }
 
-/* Correction des tags pour qu'ils soient roses */
+/* Tags */
 .tag {
     background-color: var(--secondary-color);
     color: var(--primary-color);
@@ -103,6 +103,6 @@ body {
     font-weight: bold;
 }
 
-/* Correction des alertes et urgences */
+/* alertes et urgences */
 .alert-text { color: var(--danger); }
 .todo-item.urgent { border-left: 5px solid var(--primary-color); }
