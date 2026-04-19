@@ -1,0 +1,1 @@
+console.log("Coucou, le JS fonctionne !");
