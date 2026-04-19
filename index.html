@@ -5,8 +5,7 @@
     <title>DEMACIA - Coordination Événementielle</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -14,30 +13,76 @@
         <div class="brand">
             <h1>Demacia</h1>
         </div>
-        
+
         <div class="user-controls">
-            <button class="notif-btn" aria-label="Notifications">
+            <!-- Sélecteur de profil (Sarah / Lila / John) -->
+            <div class="role-switcher" id="role-switcher">
+                <button class="role-btn active" data-role="sarah">Sarah · Planner</button>
+                <button class="role-btn" data-role="lila">Lila · Coord.</button>
+                <button class="role-btn" data-role="john">John · Bénévole</button>
+            </div>
+
+            <!-- Indicateur de synchronisation -->
+            <div class="sync-indicator" id="sync-indicator" title="Cliquez pour simuler la perte de réseau">
+                <span class="sync-dot"></span>
+                <span class="sync-label">En ligne</span>
+            </div>
+
+            <!-- Bouton notifications -->
+            <button class="notif-btn" id="notif-btn" aria-label="Notifications">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
                     <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
                 </svg>
-                <span class="notif-badge">2</span>
+                <span class="notif-badge">3</span>
             </button>
 
-            <div class="user-avatar" title="Organisateur">
-                <img src="avatar.jpg" alt="Organisateur" class="profile-pic" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                <span class="avatar-initials">O</span>
+            <!-- Avatar avec rôle visible -->
+            <div class="user-avatar" id="user-avatar">
+                <div class="user-avatar-circle" id="avatar-initials">SM</div>
+                <div class="user-avatar-name">
+                    <strong id="avatar-name">Sarah M.</strong>
+                    <span id="avatar-role">Wedding planner</span>
+                </div>
             </div>
+        </div>
+
+        <!-- Panneau de notifications -->
+        <div class="notif-panel" id="notif-panel">
+            <div class="notif-panel-header">Notifications</div>
+            <ul class="notif-panel-list">
+                <li class="notif-panel-item">
+                    <span class="notif-dot critical"></span>
+                    <div class="notif-content">
+                        <span class="notif-title">Traiteur signalé en retard (40 min)</span>
+                        <span class="notif-time">il y a 3 min · par Lila</span>
+                    </div>
+                </li>
+                <li class="notif-panel-item">
+                    <span class="notif-dot warning"></span>
+                    <div class="notif-content">
+                        <span class="notif-title">Relance VIPs — échéance demain 10h</span>
+                        <span class="notif-time">il y a 22 min</span>
+                    </div>
+                </li>
+                <li class="notif-panel-item">
+                    <span class="notif-dot info"></span>
+                    <div class="notif-content">
+                        <span class="notif-title">John a accueilli le DJ</span>
+                        <span class="notif-time">il y a 1 h</span>
+                    </div>
+                </li>
+            </ul>
         </div>
     </header>
 
     <div class="app-body">
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <nav>
                 <div class="sidebar-section-label">Navigation</div>
-                <ul>
+                <ul id="nav-list">
                     <li>
-                        <a href="#dashboard" class="active">
+                        <a href="#dashboard" class="active" data-roles="sarah">
                             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
                                 <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
@@ -46,7 +91,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#taskboard">
+                        <a href="#taskboard" data-roles="sarah,lila">
                             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
                             </svg>
@@ -54,7 +99,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#gantt">
+                        <a href="#gantt" data-roles="sarah">
                             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="3" y1="6" x2="14" y2="6"/><line x1="3" y1="12" x2="20" y2="12"/><line x1="3" y1="18" x2="10" y2="18"/>
                                 <rect x="14" y="4" width="7" height="4" rx="1"/><rect x="10" y="10" width="10" height="4" rx="1"/>
@@ -62,12 +107,32 @@
                             Planning (Gantt)
                         </a>
                     </li>
+                    <li>
+                        <a href="#providers" data-roles="sarah,lila">
+                            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                            Prestataires
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#todo" data-roles="lila,john">
+                            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 11l3 3L22 4"/>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                            </svg>
+                            Mes tâches
+                        </a>
+                    </li>
                 </ul>
 
-                <div class="sidebar-section-label">Paramètres</div>
+                <div class="sidebar-section-label" data-roles="sarah">Paramètres</div>
                 <ul>
                     <li>
-                        <a href="#settings">
+                        <a href="#settings" data-roles="sarah">
                             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="3"/>
                                 <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
@@ -83,23 +148,22 @@
             <section class="view-header">
                 <h2 id="view-title">Tableau de bord</h2>
             </section>
-            
+
             <section class="view-content">
+                <!-- ═══════════════════════════════════════ DASHBOARD ═══ -->
                 <div class="dashboard-container" id="view-dashboard">
 
-                    <!-- Bannière compte à rebours -->
                     <div class="countdown-banner">
                         <div class="banner-left">
                             <span class="banner-count">J–14</span>
                             <span class="banner-label">jours restants</span>
                         </div>
                         <div class="banner-event">
-                            <strong>Mariage Erica & Davey</strong>
+                            <strong>Mariage Fernando &amp; Luisa</strong>
                             3 mai 2026 · La Ciotat
                         </div>
                     </div>
 
-                    <!-- KPIs -->
                     <div class="kpi-grid">
                         <div class="kpi-card">
                             <span class="kpi-label">Projets</span>
@@ -123,9 +187,7 @@
                         </div>
                     </div>
 
-                    <!-- Bas du dashboard -->
                     <div class="dashboard-bottom">
-
                         <div class="card chart-card">
                             <h3>Avancement global</h3>
                             <div class="donut-wrap">
@@ -152,7 +214,7 @@
                         </div>
 
                         <div class="card alerts-card">
-                            <h3>Alertes & retards</h3>
+                            <h3>Alertes &amp; retards</h3>
                             <ul class="alert-list">
                                 <li class="alert-item">
                                     <div class="alert-dot critical"></div>
@@ -172,26 +234,21 @@
                                 </li>
                             </ul>
                         </div>
-
                     </div>
                 </div>
 
                 <!-- ═══════════════════════════════════════ VUE GANTT ═══ -->
                 <div class="gantt-container" id="view-gantt" style="display:none">
                     <div class="gantt-layout">
-
-                        <!-- Colonne tâches -->
                         <div class="gantt-tasks" id="gantt-tasks"></div>
-
-                        <!-- Colonne graphique -->
                         <div class="gantt-chart-area">
                             <div class="gantt-header" id="gantt-header"></div>
-                            <div class="gantt-bars" id="gantt-bars"></div>
+                            <div class="gantt-bars" id="gantt-bars">
+                                <svg class="gantt-deps-svg" id="gantt-deps-svg"></svg>
+                            </div>
                         </div>
-
                     </div>
 
-                    <!-- Panneau de détail -->
                     <div class="gantt-detail-panel" id="gantt-detail" style="display:none">
                         <div class="gdp-header">
                             <span class="gdp-close" id="gdp-close">✕</span>
@@ -203,11 +260,52 @@
                             <div class="gdp-row"><span class="gdp-label">Début</span><span id="gdp-start"></span></div>
                             <div class="gdp-row"><span class="gdp-label">Fin</span><span id="gdp-end"></span></div>
                             <div class="gdp-row"><span class="gdp-label">Responsable</span><span id="gdp-owner"></span></div>
-                            <div class="gdp-row"><span class="gdp-label">Avancement</span>
+                            <div class="gdp-row">
+                                <span class="gdp-label">Avancement</span>
                                 <div class="gdp-progress-wrap"><div class="gdp-progress-fill" id="gdp-progress"></div></div>
                                 <span id="gdp-pct"></span>
                             </div>
+                            <div class="gdp-row">
+                                <span class="gdp-label">Dépend de</span>
+                                <div class="gdp-deps" id="gdp-deps"></div>
+                            </div>
                             <div class="gdp-row gdp-note-row"><span class="gdp-label">Note</span><span id="gdp-note"></span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ═══════════════════════════════════════ PRESTATAIRES ═══ -->
+                <div id="view-providers" style="display:none">
+                    <div class="providers-grid" id="providers-grid"></div>
+                </div>
+
+                <!-- ═══════════════════════════════════════ TODO (Lila) ═══ -->
+                <div id="view-todo" style="display:none">
+                    <div class="todo-container">
+                        <div class="todo-greeting">
+                            <strong id="todo-greeting-name">Bonjour Lila</strong>
+                            <span id="todo-greeting-sub">5 tâches pour aujourd'hui · 1 urgente</span>
+                        </div>
+                        <ul class="todo-list" id="todo-list"></ul>
+                    </div>
+                </div>
+
+                <!-- ═══════════════════════════════════════ MOBILE JOHN ═══ -->
+                <div id="view-mobile" style="display:none">
+                    <div class="mobile-frame">
+                        <div class="mobile-header">
+                            <div class="mobile-avatar">J</div>
+                            <div class="mobile-header-text">
+                                <strong>Bonjour John</strong>
+                                <span>3 tâches à faire · 1 urgente</span>
+                            </div>
+                        </div>
+                        <div class="mobile-offline-banner" id="mobile-offline">
+                            ⚠ Hors-ligne — les validations seront synchronisées à la reconnexion
+                        </div>
+                        <div class="mobile-body">
+                            <div class="mobile-section-label">Aujourd'hui</div>
+                            <ul class="todo-list" id="mobile-todo-list"></ul>
                         </div>
                     </div>
                 </div>
@@ -215,85 +313,184 @@
         </main>
     </div>
 
+    <!-- Toast de feedback pour annuler une action -->
+    <div class="toast" id="toast">
+        <span id="toast-msg">Tâche marquée comme terminée.</span>
+        <button class="toast-undo" id="toast-undo">ANNULER</button>
+    </div>
+
     <script>
-    // ── Navigation ──────────────────────────────────────────────
-    const views = {
-        dashboard: { el: document.getElementById('view-dashboard'), title: 'Tableau de bord' },
-        gantt:     { el: document.getElementById('view-gantt'),     title: 'Planning (Gantt)' }
-    };
+    /* ═══════════════════════════════════════════════════════════════
+       DONNÉES — un seul mariage cohérent : Fernando & Luisa
+    ═══════════════════════════════════════════════════════════════ */
 
-    function showView(name) {
-        Object.entries(views).forEach(([k, v]) => {
-            v.el.style.display = k === name ? '' : 'none';
-        });
-        document.getElementById('view-title').textContent = views[name]?.title || '';
-        document.querySelectorAll('.sidebar a').forEach(a => {
-            a.classList.toggle('active', a.getAttribute('href') === '#' + name);
-        });
-        if (name === 'gantt') renderGantt();
-    }
-
-    document.querySelectorAll('.sidebar a').forEach(a => {
-        a.addEventListener('click', e => {
-            e.preventDefault();
-            const target = a.getAttribute('href').replace('#', '');
-            if (views[target]) showView(target);
-        });
-    });
-
-    // ── Données Gantt ────────────────────────────────────────────
     const GANTT_START = new Date('2026-04-01');
     const GANTT_END   = new Date('2026-05-10');
-    const DAY_W = 28; // px par jour
+    const DAY_W = 28;
 
     const projects = [
         {
             id: 'lieu', label: 'Lieu & Logistique', color: '#1D6FA4', open: true,
             tasks: [
-                { id: 't1', label: 'Réservation salle', start: '2026-04-01', end: '2026-04-05', pct: 100, status: 'done',    owner: 'Sophie M.',  note: 'Contrat signé, acompte versé.' },
-                { id: 't2', label: 'Plan de salle',     start: '2026-04-06', end: '2026-04-14', pct: 80,  status: 'active',  owner: 'Sophie M.',  note: 'En attente validation traiteur.' },
-                { id: 't3', label: 'Signalétique',      start: '2026-04-15', end: '2026-04-28', pct: 20,  status: 'active',  owner: 'Marc D.',    note: '' },
-                { id: 't4', label: 'Décoration florale',start: '2026-04-20', end: '2026-05-03', pct: 0,   status: 'todo',    owner: 'Laura B.',   note: 'Devis reçu, à valider.' },
+                { id: 't1', label: 'Réservation salle',  start: '2026-04-01', end: '2026-04-05', pct: 100, status: 'done',    owner: 'Sarah M.',  urgent: false, deps: [],       note: 'Contrat signé, acompte versé.' },
+                { id: 't2', label: 'Plan de salle',      start: '2026-04-06', end: '2026-04-14', pct: 80,  status: 'active',  owner: 'Sarah M.',  urgent: false, deps: ['t1'],   note: 'En attente validation traiteur.' },
+                { id: 't3', label: 'Signalétique',       start: '2026-04-15', end: '2026-04-28', pct: 20,  status: 'active',  owner: 'Lila R.',   urgent: false, deps: ['t2'],   note: '' },
+                { id: 't4', label: 'Décoration florale', start: '2026-04-20', end: '2026-05-03', pct: 0,   status: 'todo',    owner: 'Lila R.',   urgent: false, deps: ['t2'],   note: 'Devis reçu, à valider.' },
             ]
         },
         {
             id: 'traiteur', label: 'Traiteur & Boissons', color: '#C62828', open: true,
             tasks: [
-                { id: 't5', label: 'Sélection traiteur', start: '2026-04-01', end: '2026-04-10', pct: 60,  status: 'critical', owner: 'Marc D.',   note: '⚠ Retard 2 jours — relancer le prestataire.' },
-                { id: 't6', label: 'Menu dégustation',   start: '2026-04-11', end: '2026-04-18', pct: 0,   status: 'todo',    owner: 'Marc D.',    note: 'Bloqué par t5.' },
-                { id: 't7', label: 'Bar & cocktails',    start: '2026-04-18', end: '2026-04-30', pct: 0,   status: 'todo',    owner: 'Laura B.',   note: '' },
+                { id: 't5', label: 'Sélection traiteur', start: '2026-04-01', end: '2026-04-10', pct: 60,  status: 'critical', owner: 'Sarah M.',  urgent: true,  deps: [],       note: '⚠ Retard 2 jours — relancer le prestataire.' },
+                { id: 't6', label: 'Menu dégustation',   start: '2026-04-11', end: '2026-04-18', pct: 0,   status: 'todo',     owner: 'Sarah M.',  urgent: false, deps: ['t5'],   note: 'Bloqué par t5.' },
+                { id: 't7', label: 'Bar & cocktails',    start: '2026-04-18', end: '2026-04-30', pct: 0,   status: 'todo',     owner: 'Lila R.',   urgent: false, deps: ['t6'],   note: '' },
             ]
         },
         {
             id: 'invites', label: 'Invités & Protocole', color: '#F0A500', open: true,
             tasks: [
-                { id: 't8',  label: 'Invitations envoyées', start: '2026-04-01', end: '2026-04-07', pct: 100, status: 'done',   owner: 'Sophie M.', note: '124 invitations postées.' },
-                { id: 't9',  label: 'Suivi confirmations',  start: '2026-04-08', end: '2026-04-25', pct: 55,  status: 'active', owner: 'Sophie M.', note: '68/124 confirmés.' },
-                { id: 't10', label: 'Relance VIPs',         start: '2026-04-18', end: '2026-04-20', pct: 0,   status: 'warn',   owner: 'Marc D.',   note: '⏳ Échéance demain 10h00.' },
-                { id: 't11', label: 'Plan de table',        start: '2026-04-26', end: '2026-05-02', pct: 0,   status: 'todo',   owner: 'Laura B.',  note: '' },
+                { id: 't8',  label: 'Invitations envoyées', start: '2026-04-01', end: '2026-04-07', pct: 100, status: 'done',   owner: 'Sarah M.', urgent: false, deps: [],      note: '124 invitations postées.' },
+                { id: 't9',  label: 'Suivi confirmations',  start: '2026-04-08', end: '2026-04-25', pct: 55,  status: 'active', owner: 'Sarah M.', urgent: false, deps: ['t8'],  note: '68/124 confirmés.' },
+                { id: 't10', label: 'Relance VIPs',         start: '2026-04-18', end: '2026-04-20', pct: 0,   status: 'warn',   owner: 'Lila R.',  urgent: true,  deps: ['t9'],  note: '⏳ Échéance demain 10h00.' },
+                { id: 't11', label: 'Plan de table',        start: '2026-04-26', end: '2026-05-02', pct: 0,   status: 'todo',   owner: 'Sarah M.', urgent: false, deps: ['t9'],  note: '' },
             ]
         },
         {
             id: 'media', label: 'Médias & Souvenirs', color: '#2E7D32', open: false,
             tasks: [
-                { id: 't12', label: 'Photographe',   start: '2026-04-05', end: '2026-04-10', pct: 100, status: 'done',   owner: 'Laura B.',  note: 'Contrat signé.' },
-                { id: 't13', label: 'Vidéaste',      start: '2026-04-05', end: '2026-04-12', pct: 100, status: 'done',   owner: 'Laura B.',  note: 'Contrat signé.' },
-                { id: 't14', label: 'Livre d\'or',   start: '2026-04-20', end: '2026-04-28', pct: 10,  status: 'active', owner: 'Marc D.',   note: '' },
-                { id: 't15', label: 'Cadeaux invités',start: '2026-04-22', end: '2026-05-01', pct: 0,  status: 'todo',   owner: 'Sophie M.', note: '' },
+                { id: 't12', label: 'Photographe',    start: '2026-04-05', end: '2026-04-10', pct: 100, status: 'done',   owner: 'Sarah M.', urgent: false, deps: [],       note: 'Contrat signé.' },
+                { id: 't13', label: 'Vidéaste',       start: '2026-04-05', end: '2026-04-12', pct: 100, status: 'done',   owner: 'Sarah M.', urgent: false, deps: [],       note: 'Contrat signé.' },
+                { id: 't14', label: 'Livre d\'or',    start: '2026-04-20', end: '2026-04-28', pct: 10,  status: 'active', owner: 'Lila R.',  urgent: false, deps: [],       note: '' },
+                { id: 't15', label: 'Cadeaux invités',start: '2026-04-22', end: '2026-05-01', pct: 0,   status: 'todo',   owner: 'Lila R.',  urgent: false, deps: ['t9'],   note: '' },
             ]
         }
     ];
 
+    const providers = [
+        { id: 'p1', name: 'Société Gros Son',   role: 'Sonorisation / DJ',  phone: '06 12 34 56 78', eta: '14:00', status: 'arrived'  },
+        { id: 'p2', name: 'Maison Lefèvre',     role: 'Traiteur',           phone: '06 23 45 67 89', eta: '13:00', status: 'late'     },
+        { id: 'p3', name: 'Fleurs de Provence', role: 'Décoration florale', phone: '06 34 56 78 90', eta: '10:00', status: 'arrived'  },
+        { id: 'p4', name: 'Studio Lumière',     role: 'Photographe',        phone: '06 45 67 89 01', eta: '15:30', status: 'progress' },
+        { id: 'p5', name: 'Atelier Moncœur',    role: 'Pâtissier',          phone: '06 56 78 90 12', eta: '16:00', status: 'progress' },
+        { id: 'p6', name: 'Chapiteaux du Sud',  role: 'Montage structure',  phone: '06 67 89 01 23', eta: '09:00', status: 'arrived'  }
+    ];
+
+    const todosLila = [
+        { id: 'l1', label: 'Accueillir le traiteur',         time: '13:00', urgent: true,  done: false, note: 'Retard signalé — prévenir Sarah' },
+        { id: 'l2', label: 'Vérifier installation chapiteau', time: '09:30', urgent: false, done: true,  note: '' },
+        { id: 'l3', label: 'Briefing DJ soundcheck',          time: '14:30', urgent: false, done: false, note: '' },
+        { id: 'l4', label: 'Valider décoration florale',      time: '11:00', urgent: false, done: false, note: '' },
+        { id: 'l5', label: 'Coordonner répétition cérémonie', time: '16:00', urgent: false, done: false, note: '' }
+    ];
+
+    const todosJohn = [
+        { id: 'j1', label: 'Acheter des glaçons',    time: '11:00', urgent: true,  done: false, note: 'Supermarché à 5 min du domaine' },
+        { id: 'j2', label: 'Accueillir le DJ',       time: '14:00', urgent: false, done: true,  note: '' },
+        { id: 'j3', label: 'Indiquer le parking aux invités', time: '15:00', urgent: false, done: false, note: '' }
+    ];
+
+    /* ═══════════════════════════════════════════════════════════════
+       ÉTAT GLOBAL
+    ═══════════════════════════════════════════════════════════════ */
+
     const STATUS_COLORS = {
-        done:     '#1D6FA4',
-        active:   '#F0A500',
-        todo:     '#C8D0D8',
-        critical: '#C62828',
-        warn:     '#F57C00'
+        done: '#1D6FA4', active: '#F0A500', todo: '#C8D0D8',
+        critical: '#C62828', warn: '#F57C00'
     };
     const STATUS_LABELS = {
-        done: 'Terminé', active: 'En cours', todo: 'À faire', critical: 'Critique', warn: 'Urgent'
+        done: 'Terminé', active: 'En cours', todo: 'À faire',
+        critical: 'Critique', warn: 'Urgent'
     };
+
+    const ROLE_CONFIG = {
+        sarah: { name: 'Sarah M.',  role: 'Wedding planner',          initials: 'SM', defaultView: 'dashboard' },
+        lila:  { name: 'Lila R.',   role: 'Assistante de coordination', initials: 'LR', defaultView: 'todo'      },
+        john:  { name: 'John D.',   role: 'Bénévole',                 initials: 'JD', defaultView: 'mobile'    }
+    };
+
+    let currentRole = 'sarah';
+    let isOnline = true;
+    let pendingSync = [];
+    let undoAction = null;
+
+    /* ═══════════════════════════════════════════════════════════════
+       NAVIGATION & RÔLES
+    ═══════════════════════════════════════════════════════════════ */
+
+    const views = {
+        dashboard: { el: document.getElementById('view-dashboard'), title: 'Tableau de bord' },
+        gantt:     { el: document.getElementById('view-gantt'),     title: 'Planning (Gantt)' },
+        providers: { el: document.getElementById('view-providers'), title: 'Prestataires' },
+        todo:      { el: document.getElementById('view-todo'),      title: 'Mes tâches' },
+        mobile:    { el: document.getElementById('view-mobile'),    title: 'Mes tâches' },
+        taskboard: { el: null, title: 'Taskboard' } // non implémenté
+    };
+
+    function showView(name) {
+        Object.entries(views).forEach(([k, v]) => {
+            if (v.el) v.el.style.display = k === name ? '' : 'none';
+        });
+        document.getElementById('view-title').textContent = views[name]?.title || '';
+        document.querySelectorAll('.sidebar a').forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + name);
+        });
+        if (name === 'gantt')     renderGantt();
+        if (name === 'providers') renderProviders();
+        if (name === 'todo')      renderTodos('lila');
+        if (name === 'mobile')    renderTodos('john');
+    }
+
+    function applyRole(role) {
+        currentRole = role;
+
+        // Switcher
+        document.querySelectorAll('.role-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.role === role);
+        });
+
+        // Avatar
+        const cfg = ROLE_CONFIG[role];
+        document.getElementById('avatar-initials').textContent = cfg.initials;
+        document.getElementById('avatar-name').textContent     = cfg.name;
+        document.getElementById('avatar-role').textContent     = cfg.role;
+
+        // Filtrage des liens du menu selon le rôle
+        document.querySelectorAll('[data-roles]').forEach(el => {
+            const allowed = el.dataset.roles.split(',');
+            const visible = allowed.includes(role);
+            if (el.tagName === 'A') {
+                // Cacher le <li> parent du lien
+                el.parentElement.style.display = visible ? '' : 'none';
+            } else {
+                // Label de section, etc. : cacher directement
+                el.style.display = visible ? '' : 'none';
+            }
+        });
+
+        // Le greeting de la todo
+        if (role === 'lila') {
+            document.getElementById('todo-greeting-name').textContent = 'Bonjour Lila';
+        }
+
+        // Basculer sur la vue par défaut du rôle
+        showView(cfg.defaultView);
+    }
+
+    document.querySelectorAll('.role-btn').forEach(btn => {
+        btn.addEventListener('click', () => applyRole(btn.dataset.role));
+    });
+
+    document.querySelectorAll('.sidebar a').forEach(a => {
+        a.addEventListener('click', e => {
+            e.preventDefault();
+            const target = a.getAttribute('href').replace('#', '');
+            if (views[target] && views[target].el) showView(target);
+        });
+    });
+
+    /* ═══════════════════════════════════════════════════════════════
+       GANTT
+    ═══════════════════════════════════════════════════════════════ */
 
     function daysBetween(a, b) {
         return Math.round((new Date(b) - new Date(a)) / 86400000);
@@ -302,41 +499,45 @@
         return new Date(d).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' });
     }
 
-    let selectedTask = null;
+    function getTaskById(id) {
+        for (const p of projects) {
+            const t = p.tasks.find(t => t.id === id);
+            if (t) return { task: t, project: p };
+        }
+        return null;
+    }
 
     function renderGantt() {
         const totalDays = daysBetween(GANTT_START, GANTT_END);
-        const tasksEl  = document.getElementById('gantt-tasks');
-        const headerEl = document.getElementById('gantt-header');
-        const barsEl   = document.getElementById('gantt-bars');
+        const tasksEl   = document.getElementById('gantt-tasks');
+        const headerEl  = document.getElementById('gantt-header');
+        const barsEl    = document.getElementById('gantt-bars');
+        const depsSvg   = document.getElementById('gantt-deps-svg');
 
         // Header : semaines
         headerEl.innerHTML = '';
         let d = new Date(GANTT_START);
         while (d < GANTT_END) {
-            const label = d.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' });
             const cell = document.createElement('div');
             cell.className = 'gantt-week-label';
             cell.style.width = (7 * DAY_W) + 'px';
-            cell.textContent = label;
+            cell.textContent = d.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' });
             headerEl.appendChild(cell);
             d.setDate(d.getDate() + 7);
         }
-        // Ligne "aujourd'hui"
-        const todayOffset = daysBetween(GANTT_START, new Date());
-        if (todayOffset >= 0 && todayOffset <= totalDays) {
-            const marker = document.createElement('div');
-            marker.className = 'gantt-today-line';
-            marker.style.left = (todayOffset * DAY_W) + 'px';
-            marker.style.height = barsEl.offsetHeight + 'px';
-            barsEl.appendChild(marker);
-        }
 
         tasksEl.innerHTML = '';
-        barsEl.innerHTML  = '';
+        // On vide les bars mais on préserve le SVG des dépendances
+        Array.from(barsEl.children).forEach(c => {
+            if (c !== depsSvg) c.remove();
+        });
+
+        // Positions des barres (pour tracer les flèches de dépendances)
+        const barPositions = {};
+        let rowIndex = 0;
 
         projects.forEach(proj => {
-            // Groupe header — tâches
+            // Header groupe (tâches)
             const gh = document.createElement('div');
             gh.className = 'gantt-group-header';
             gh.innerHTML = `<span class="gantt-group-arrow ${proj.open ? 'open' : ''}" data-id="${proj.id}">▶</span>
@@ -344,18 +545,19 @@
                             <span class="gantt-group-name">${proj.label}</span>`;
             tasksEl.appendChild(gh);
 
-            // Groupe header — barres (vide, juste la hauteur)
+            // Header groupe (barres, vide)
             const gbBar = document.createElement('div');
             gbBar.className = 'gantt-group-header gantt-group-bar-row';
             barsEl.appendChild(gbBar);
+            rowIndex++;
 
-            // Tâches
             proj.tasks.forEach(task => {
                 const taskRow = document.createElement('div');
                 taskRow.className = 'gantt-task-row' + (proj.open ? '' : ' hidden');
                 taskRow.dataset.group = proj.id;
-                taskRow.innerHTML = `<span class="gantt-task-label">${task.label}</span>
-                    <span class="gantt-task-owner">${task.owner}</span>`;
+                const urgentInList = task.urgent ? '<span class="urgent-tag" title="Urgent">!</span>' : '';
+                taskRow.innerHTML = `<span class="gantt-task-label">${urgentInList}${task.label}</span>
+                                     <span class="gantt-task-owner">${task.owner}</span>`;
                 taskRow.addEventListener('click', () => openDetail(task, proj));
                 tasksEl.appendChild(taskRow);
 
@@ -364,30 +566,60 @@
                 const barRow = document.createElement('div');
                 barRow.className = 'gantt-bar-row' + (proj.open ? '' : ' hidden');
                 barRow.dataset.group = proj.id;
+                barRow.dataset.taskId = task.id;
 
                 const bar = document.createElement('div');
                 bar.className = 'gantt-bar';
-                bar.style.left    = (offset * DAY_W) + 'px';
-                bar.style.width   = (width  * DAY_W - 4) + 'px';
+                bar.style.left       = (offset * DAY_W) + 'px';
+                bar.style.width      = (width * DAY_W - 4) + 'px';
                 bar.style.background = STATUS_COLORS[task.status];
+
+                const inner = document.createElement('div');
+                inner.className = 'gantt-bar-inner';
+                inner.style.background = STATUS_COLORS[task.status];
 
                 const fill = document.createElement('div');
                 fill.className = 'gantt-bar-fill';
                 fill.style.width = task.pct + '%';
                 fill.style.background = 'rgba(255,255,255,0.3)';
-                bar.appendChild(fill);
+                inner.appendChild(fill);
+                bar.appendChild(inner);
+
+                if (task.urgent) {
+                    const u = document.createElement('span');
+                    u.className = 'gantt-bar-urgent';
+                    u.textContent = '!';
+                    u.title = 'Tâche urgente';
+                    bar.appendChild(u);
+                }
 
                 bar.addEventListener('click', () => openDetail(task, proj));
                 barRow.appendChild(bar);
                 barsEl.appendChild(barRow);
+
+                // Stocker la position pour les flèches
+                barPositions[task.id] = {
+                    visible: proj.open,
+                    rowIndex: rowIndex,
+                    left: offset * DAY_W,
+                    right: offset * DAY_W + width * DAY_W - 4
+                };
+
+                rowIndex++;
             });
         });
 
-        // Ligne aujourd'hui (après rendu)
-        const tl = document.createElement('div');
-        tl.className = 'gantt-today-line';
-        tl.style.left = (daysBetween(GANTT_START, new Date()) * DAY_W) + 'px';
-        barsEl.appendChild(tl);
+        // Ligne aujourd'hui
+        const todayOffset = daysBetween(GANTT_START, new Date());
+        if (todayOffset >= 0 && todayOffset <= totalDays) {
+            const tl = document.createElement('div');
+            tl.className = 'gantt-today-line';
+            tl.style.left = (todayOffset * DAY_W) + 'px';
+            barsEl.appendChild(tl);
+        }
+
+        // ── Dépendances : flèches SVG ──
+        drawDependencies(barPositions);
 
         // Toggle groupes
         tasksEl.querySelectorAll('.gantt-group-arrow').forEach(arrow => {
@@ -396,10 +628,68 @@
                 const id = arrow.dataset.id;
                 const proj = projects.find(p => p.id === id);
                 proj.open = !proj.open;
-                arrow.classList.toggle('open', proj.open);
-                document.querySelectorAll(`[data-group="${id}"]`).forEach(r => r.classList.toggle('hidden', !proj.open));
+                renderGantt();
             });
         });
+    }
+
+    function drawDependencies(positions) {
+        const depsSvg = document.getElementById('gantt-deps-svg');
+        const barsEl  = document.getElementById('gantt-bars');
+
+        // Dimensionner le SVG
+        depsSvg.setAttribute('width', barsEl.scrollWidth);
+        depsSvg.setAttribute('height', barsEl.scrollHeight);
+        depsSvg.innerHTML = `
+            <defs>
+                <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5"
+                        markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#880E4F" opacity="0.55"/>
+                </marker>
+            </defs>
+        `;
+
+        const rowH = 40;
+        const groupH = 38;
+
+        projects.forEach(proj => {
+            if (!proj.open) return;
+            proj.tasks.forEach(task => {
+                if (!task.deps || task.deps.length === 0) return;
+                const to = positions[task.id];
+                if (!to || !to.visible) return;
+
+                task.deps.forEach(depId => {
+                    const from = positions[depId];
+                    if (!from || !from.visible) return;
+
+                    const y1 = from.rowIndex * rowH - rowH/2 - 4 + getGroupOffset(from.rowIndex);
+                    const y2 = to.rowIndex   * rowH - rowH/2 - 4 + getGroupOffset(to.rowIndex);
+                    const x1 = from.right;
+                    const x2 = to.left - 2;
+
+                    // Tracé en L : sort à droite de la barre source, descend, puis entre à gauche de la cible
+                    const midX = x2 - 8;
+                    const d = `M ${x1} ${y1} L ${midX} ${y1} L ${midX} ${y2} L ${x2} ${y2}`;
+
+                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    path.setAttribute('d', d);
+                    path.setAttribute('fill', 'none');
+                    path.setAttribute('stroke', '#880E4F');
+                    path.setAttribute('stroke-width', '1.2');
+                    path.setAttribute('stroke-opacity', '0.45');
+                    path.setAttribute('stroke-dasharray', '3 2');
+                    path.setAttribute('marker-end', 'url(#arrow)');
+                    depsSvg.appendChild(path);
+                });
+            });
+        });
+
+        // Helper : ajuster pour les lignes de groupe (hauteur 38 au lieu de 40)
+        function getGroupOffset(index) {
+            // Approximation simple : chaque groupe ouvert avant la ligne retire 2px
+            return 0;
+        }
     }
 
     function openDetail(task, proj) {
@@ -417,13 +707,219 @@
         document.getElementById('gdp-progress').style.width = task.pct + '%';
         document.getElementById('gdp-progress').style.background = STATUS_COLORS[task.status];
         document.getElementById('gdp-note').textContent  = task.note || '—';
+
+        // Dépendances
+        const depsEl = document.getElementById('gdp-deps');
+        depsEl.innerHTML = '';
+        if (task.deps && task.deps.length > 0) {
+            task.deps.forEach(did => {
+                const d = getTaskById(did);
+                if (d) {
+                    const item = document.createElement('div');
+                    item.className = 'gdp-dep-item';
+                    item.textContent = d.task.label;
+                    depsEl.appendChild(item);
+                }
+            });
+        } else {
+            const empty = document.createElement('div');
+            empty.className = 'gdp-dep-empty';
+            empty.textContent = 'Aucune dépendance';
+            depsEl.appendChild(empty);
+        }
+
         panel.style.display = '';
-        selectedTask = task.id;
     }
 
     document.getElementById('gdp-close').addEventListener('click', () => {
         document.getElementById('gantt-detail').style.display = 'none';
     });
+
+    /* ═══════════════════════════════════════════════════════════════
+       PRESTATAIRES (feux tricolores)
+    ═══════════════════════════════════════════════════════════════ */
+
+    function renderProviders() {
+        const grid = document.getElementById('providers-grid');
+        grid.innerHTML = '';
+
+        const statusMap = {
+            arrived:  { label: 'Arrivé',   on: 'green',  cssClass: 'status-arrived'  },
+            progress: { label: 'En cours', on: 'orange', cssClass: 'status-progress' },
+            late:     { label: 'En retard', on: 'red',    cssClass: 'status-late'     }
+        };
+
+        providers.forEach(p => {
+            const s = statusMap[p.status];
+            const card = document.createElement('div');
+            card.className = 'provider-card';
+            const initials = p.name.split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
+            card.innerHTML = `
+                <div class="provider-card-top">
+                    <div class="provider-avatar">${initials}</div>
+                    <div class="provider-info">
+                        <strong>${p.name}</strong>
+                        <span>${p.role}</span>
+                    </div>
+                    <div class="traffic-light" title="${s.label}">
+                        <div class="traffic-bulb ${s.on === 'red'    ? 'on red'    : ''}"></div>
+                        <div class="traffic-bulb ${s.on === 'orange' ? 'on orange' : ''}"></div>
+                        <div class="traffic-bulb ${s.on === 'green'  ? 'on green'  : ''}"></div>
+                    </div>
+                </div>
+                <div class="provider-card-bottom">
+                    <span>📞 ${p.phone}</span>
+                    <span class="provider-status-label ${s.cssClass}">${s.label} · ${p.eta}</span>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       TODO LIST (Lila = desktop ; John = mobile simplifiée)
+    ═══════════════════════════════════════════════════════════════ */
+
+    function renderTodos(who) {
+        const list = who === 'lila'
+            ? document.getElementById('todo-list')
+            : document.getElementById('mobile-todo-list');
+        const data = who === 'lila' ? todosLila : todosJohn;
+
+        list.innerHTML = '';
+        data.forEach(td => {
+            const li = document.createElement('li');
+            li.className = 'todo-item' + (td.urgent ? ' urgent' : '') + (td.done ? ' done' : '');
+            li.dataset.id = td.id;
+
+            const urgentBadge = td.urgent && !td.done
+                ? '<span class="todo-urgent-badge">! URGENT</span>'
+                : '';
+            const syncIndicator = pendingSync.includes(td.id)
+                ? '<span class="todo-sync-pending">Sync en attente…</span>'
+                : '';
+
+            li.innerHTML = `
+                <div class="todo-checkbox">${td.done ? '✓' : ''}</div>
+                <div class="todo-content">
+                    <span class="todo-label">${td.label}</span>
+                    <div class="todo-meta">
+                        <span class="todo-time">⏰ ${td.time}</span>
+                        ${urgentBadge}
+                        ${syncIndicator}
+                    </div>
+                </div>
+            `;
+
+            li.querySelector('.todo-checkbox').addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleTodo(td, who);
+            });
+
+            list.appendChild(li);
+        });
+    }
+
+    function toggleTodo(td, who) {
+        const wasDone = td.done;
+        td.done = !td.done;
+
+        // Si hors-ligne : ajouter à la file de sync
+        if (!isOnline && td.done) {
+            if (!pendingSync.includes(td.id)) pendingSync.push(td.id);
+        }
+
+        renderTodos(who);
+
+        if (!wasDone && td.done) {
+            showToast(`Tâche « ${td.label} » marquée comme terminée.`, () => {
+                td.done = false;
+                pendingSync = pendingSync.filter(id => id !== td.id);
+                renderTodos(who);
+            });
+        }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       TOAST / UNDO
+    ═══════════════════════════════════════════════════════════════ */
+
+    function showToast(msg, onUndo) {
+        const toast = document.getElementById('toast');
+        document.getElementById('toast-msg').textContent = msg;
+        toast.classList.add('show');
+        undoAction = onUndo;
+
+        clearTimeout(showToast._timer);
+        showToast._timer = setTimeout(() => {
+            toast.classList.remove('show');
+            undoAction = null;
+        }, 4000);
+    }
+
+    document.getElementById('toast-undo').addEventListener('click', () => {
+        if (undoAction) undoAction();
+        document.getElementById('toast').classList.remove('show');
+        undoAction = null;
+    });
+
+    /* ═══════════════════════════════════════════════════════════════
+       NOTIFICATIONS (panneau)
+    ═══════════════════════════════════════════════════════════════ */
+
+    const notifBtn   = document.getElementById('notif-btn');
+    const notifPanel = document.getElementById('notif-panel');
+
+    notifBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        notifPanel.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!notifPanel.contains(e.target) && e.target !== notifBtn) {
+            notifPanel.classList.remove('open');
+        }
+    });
+
+    /* ═══════════════════════════════════════════════════════════════
+       SYNC / OFFLINE toggle
+    ═══════════════════════════════════════════════════════════════ */
+
+    const syncIndicator = document.getElementById('sync-indicator');
+
+    function updateSyncUI() {
+        syncIndicator.classList.toggle('offline', !isOnline);
+        syncIndicator.querySelector('.sync-label').textContent = isOnline
+            ? (pendingSync.length > 0 ? `Sync ${pendingSync.length}…` : 'En ligne')
+            : 'Hors-ligne';
+        syncIndicator.classList.toggle('syncing', isOnline && pendingSync.length > 0);
+
+        // Bannière mobile
+        document.getElementById('mobile-offline').classList.toggle('visible', !isOnline);
+    }
+
+    syncIndicator.addEventListener('click', () => {
+        isOnline = !isOnline;
+        updateSyncUI();
+        // Simuler la synchro lors du retour en ligne
+        if (isOnline && pendingSync.length > 0) {
+            syncIndicator.classList.add('syncing');
+            setTimeout(() => {
+                pendingSync = [];
+                updateSyncUI();
+                // Re-render visibles
+                if (views.todo.el.style.display !== 'none')   renderTodos('lila');
+                if (views.mobile.el.style.display !== 'none') renderTodos('john');
+            }, 1200);
+        }
+    });
+
+    /* ═══════════════════════════════════════════════════════════════
+       INIT
+    ═══════════════════════════════════════════════════════════════ */
+
+    applyRole('sarah');
+    updateSyncUI();
     </script>
 </body>
 </html>
