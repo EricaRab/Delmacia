@@ -146,3 +146,12 @@ main   { outline: 2px solid #3357FF; } /* Bleu pour le contenu */
     border-radius: 12px;
     font-size: 0.8rem;
 }
+
+
+.sidebar nav ul {
+    list-style-type: none;
+}
+
+.sidebar nav ul li a {
+    text-decoration: none;
+}
