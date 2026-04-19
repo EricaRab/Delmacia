@@ -5,6 +5,17 @@ main   { outline: 2px solid #3357FF; } /* Bleu pour le contenu */
 .user-controls { outline: 1px dashed #888; }
 .brand { outline: 1px dashed #888; }
 
+body{
+    font-family: 'Helvatica Neue', Helvetica, sans-serif;
+}
+
+.brand h1 {
+    font-family: 'DancingScript';
+    font-size: 2.5rem; /* Ajuste la taille car les polices cursives paraissent souvent plus petites */
+    color: #d81b60;    /* La couleur rosée de ton design */
+    margin: 0;
+}
+
 /* style.css */
 
 .top-bar {
