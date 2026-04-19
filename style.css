@@ -7,10 +7,10 @@
     --warning: #F57C00;          
     --danger: #C62828;           
     
-    --bg-app: #FFF8F9;           /* Fond de l'app légèrement rosé */
+    --bg-app: #FFF8F9;
     --bg-card: #FFFFFF;          
-    --text-main: #880E4F;        /* Violet très sombre pour un meilleur contraste que le noir */
-    --text-muted: #880E4F;       /* Bordeaux pour les textes secondaires */
+    --text-main: #880E4F;
+    --text-muted: #880E4F;
     --border: #F8BBD0;           
     --font-main: 'Segoe UI', Roboto, Helvetica, sans-serif;
 }
