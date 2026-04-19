@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>DEMACIA - Coordination Événementielle</title>
+    
     <link rel="stylesheet" href="style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -43,92 +47,111 @@
             
             <section class="view-content">
                 <div class="dashboard-container">
-    
-    <div class="countdown-banner">
-    <div class="countdown-text">
-        <h2>J - 14</h2>
-        <p>avant le Gala de Charité</p>
-    </div>
-</div>
 
-<div class="kpi-grid">
-    <div class="kpi-card">
-        <div class="kpi-icon">📁</div>
-        <div class="kpi-data">
-            <span class="kpi-title">Projets</span>
-            <strong class="kpi-number">6</strong>
-            <span class="kpi-sub">2 terminés</span>
-        </div>
-    </div>
-    
-    <div class="kpi-card">
-        <div class="kpi-icon">📋</div>
-        <div class="kpi-data">
-            <span class="kpi-title">Tâches</span>
-            <strong class="kpi-number">132</strong>
-            <span class="kpi-sub">28 terminées</span>
-        </div>
-    </div>
-    
-    <div class="kpi-card">
-        <div class="kpi-icon">👥</div>
-        <div class="kpi-data">
-            <span class="kpi-title">Membres</span>
-            <strong class="kpi-number">8</strong>
-            <span class="kpi-sub">2 actifs</span>
-        </div>
-    </div>
-    
-    <div class="kpi-card">
-        <div class="kpi-icon">📈</div>
-        <div class="kpi-data">
-            <span class="kpi-title">Productivité</span>
-            <strong class="kpi-number">76%</strong>
-            <span class="kpi-sub positive">↗ +26%</span>
-        </div>
-    </div>
-</div>
+                    <div class="countdown-banner">
+                        <div class="banner-left">
+                            <span class="banner-count">J–14</span>
+                            <span class="banner-label">jours restants</span>
+                        </div>
+                        <div class="banner-event">
+                            <strong>Gala de Charité</strong>
+                            3 mai 2026 · Paris
+                        </div>
+                    </div>
 
-<div class="dashboard-bottom">
-    
-    <div class="card chart-card">
-        <h3>Avancement Global</h3>
-        <div class="donut-container">
-            <div class="donut-chart">
-                <div class="donut-hole">
-                    <span>65%</span>
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <span class="kpi-label">Projets</span>
+                            <strong class="kpi-number">6</strong>
+                            <span class="kpi-sub">2 terminés</span>
+                        </div>
+                        <div class="kpi-card">
+                            <span class="kpi-label">Tâches</span>
+                            <strong class="kpi-number">132</strong>
+                            <span class="kpi-sub">28 terminées</span>
+                        </div>
+                        <div class="kpi-card">
+                            <span class="kpi-label">Membres</span>
+                            <strong class="kpi-number">8</strong>
+                            <span class="kpi-sub">2 actifs aujourd'hui</span>
+                        </div>
+                        <div class="kpi-card">
+                            <span class="kpi-label">Productivité</span>
+                            <strong class="kpi-number">76%</strong>
+                            <span class="kpi-sub positive">↑ +26% ce mois</span>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-bottom">
+
+                        <div class="card chart-card">
+                            <h3>Avancement global</h3>
+                            <div class="donut-wrap">
+                                <svg width="110" height="110" viewBox="0 0 110 110">
+                                    <circle cx="55" cy="55" r="40" fill="none" stroke="#e0ddd6" stroke-width="12"/>
+                                    <circle cx="55" cy="55" r="40" fill="none" stroke="#b4b2a9" stroke-width="12"
+                                        stroke-dasharray="37.7 251.3"
+                                        stroke-dashoffset="-213.6"
+                                        stroke-linecap="butt"
+                                        transform="rotate(-90 55 55)"/>
+                                    <circle cx="55" cy="55" r="40" fill="none" stroke="#185FA5" stroke-width="12"
+                                        stroke-dasharray="50.3 251.3"
+                                        stroke-dashoffset="-163.3"
+                                        stroke-linecap="butt"
+                                        transform="rotate(-90 55 55)"/>
+                                    <circle cx="55" cy="55" r="40" fill="none" stroke="#0F6E56" stroke-width="12"
+                                        stroke-dasharray="163.3 251.3"
+                                        stroke-dashoffset="0"
+                                        stroke-linecap="butt"
+                                        transform="rotate(-90 55 55)"/>
+                                    <text x="55" y="51" text-anchor="middle" font-family="'DM Mono',monospace" font-size="14" font-weight="500" fill="#1a1a18">65%</text>
+                                    <text x="55" y="64" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="#888780">terminé</text>
+                                </svg>
+                                <div class="donut-legend">
+                                    <div class="legend-row">
+                                        <span class="legend-dot done"></span>
+                                        <span class="legend-name">Terminé</span>
+                                        <span class="legend-pct">65%</span>
+                                    </div>
+                                    <div class="legend-row">
+                                        <span class="legend-dot active"></span>
+                                        <span class="legend-name">En cours</span>
+                                        <span class="legend-pct">20%</span>
+                                    </div>
+                                    <div class="legend-row">
+                                        <span class="legend-dot todo"></span>
+                                        <span class="legend-name">À faire</span>
+                                        <span class="legend-pct">15%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card alerts-card">
+                            <h3>Alertes & retards</h3>
+                            <ul class="alert-list">
+                                <li class="alert-item">
+                                    <div class="alert-dot critical"></div>
+                                    <div class="alert-body">
+                                        <strong>Traiteur non validé</strong>
+                                        <span>Retard de 2 jours</span>
+                                    </div>
+                                    <span class="alert-badge badge-crit">Critique</span>
+                                </li>
+                                <li class="alert-item">
+                                    <div class="alert-dot warning"></div>
+                                    <div class="alert-body">
+                                        <strong>Relancer les VIPs</strong>
+                                        <span>Échéance demain 10h00</span>
+                                    </div>
+                                    <span class="alert-badge badge-warn">Urgent</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="chart-legend">
-            <span class="legend-item"><span class="dot done"></span>Terminé (65%)</span>
-            <span class="legend-item"><span class="dot progress"></span>En cours (20%)</span>
-            <span class="legend-item"><span class="dot todo"></span>À faire (15%)</span>
-        </div>
-    </div>
-
-    <div class="card alerts-card">
-        <h3>Tâches en retard & Alertes</h3>
-        <ul class="alert-list">
-            <li class="alert-item critical">
-                <span class="alert-icon">⚠️</span>
-                <div class="alert-content">
-                    <strong>Traiteur non validé</strong>
-                    <span>Retard : 2 jours</span>
-                </div>
-            </li>
-            <li class="alert-item warning">
-                <span class="alert-icon">⏳</span>
-                <div class="alert-content">
-                    <strong>Relancer les VIPs</strong>
-                    <span>Échéance : Demain 10h</span>
-                </div>
-            </li>
-        </ul>
-    </div>
-
-</div>
-                </section>
+            </section>
         </main>
     </div>
 
