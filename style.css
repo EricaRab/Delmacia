@@ -1,6 +1,6 @@
 :root {
     /* Ta palette DEMACIA */
-    --primary-color: #E91E63;    /* Hotpink foncé */
+    --primary-color: #e9487e;    /* Hotpink foncé */
     --secondary-color: #FCE4EC;  /* Rose très pâle (fond) */
     --accent-color: #FF80AB;     /* Hotpink vif */
     --success: #2E7D32;          
@@ -9,7 +9,7 @@
     
     --bg-app: #FFF8F9;           /* Fond de l'app légèrement rosé */
     --bg-card: #FFFFFF;          
-    --text-main: #4A148C;        /* Violet très sombre pour un meilleur contraste que le noir */
+    --text-main: #880E4F;        /* Violet très sombre pour un meilleur contraste que le noir */
     --text-muted: #880E4F;       /* Bordeaux pour les textes secondaires */
     --border: #F8BBD0;           
     --font-main: 'Segoe UI', Roboto, Helvetica, sans-serif;
